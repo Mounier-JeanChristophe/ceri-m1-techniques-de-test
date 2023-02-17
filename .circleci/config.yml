@@ -1,0 +1,23 @@
+version: 2.1
+executors:
+  my-custom-executor:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/Mounier-JeanChristophe/ceri-m1-techniques-de-test/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+jobs:
+  test:
+
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run: |
+          mvn test
+
+workflows:
+  my-custom-workflow:
+    jobs:
+      - test
