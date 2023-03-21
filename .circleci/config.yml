@@ -1,7 +1,7 @@
-version: '2.1'
+version: 2.1
 
 orbs:
-  maven: circleci/maven@x.y
+  maven: circleci/maven@1.4.0
 
 workflows:
   maven_test:
@@ -11,15 +11,21 @@ workflows:
 executors:
   my-custom-executor:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/openjdk:15.0
 
 jobs:
-  test:
+  filters:
+    branches:
+      only:
+        - master
 
     executor: my-custom-executor
     steps:
       - checkout
-      - run: |
-          mvn test
-
+      - run:
+          name: Build
+          command: mvn -B -DskipTests clean package
+      - run:
+          name: Test
+          command: mvn test
 
