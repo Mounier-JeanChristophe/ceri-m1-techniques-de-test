@@ -19,9 +19,16 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run:
-          name: Codecov
-          command: curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov 
+      - codecov/upload
+      - run: 
+           name: codecov-1
+           command: curl -Os https://uploader.codecov.io/latest/linux/codecov
+      - run: 
+          name: codecov-2
+          command: chmod +x codecov
+      - run: 
+          name: codecov-3
+          command: ./codecov 
 
 workflows:
   maven_test:
