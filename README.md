@@ -1,5 +1,12 @@
 # UCE Génie Logiciel Avancé : Techniques de tests
 
+
+
+Mon identité: Sieur Mounier Jean-Christophe du noble groupe de troubadour numérique ILSEN_Cla
+
+[![<ORG_NAME>](https://circleci.com/gh/Mounier-JeanChristophe/ceri-m1-techniques-de-test.svg?style=svg)](<LINK>)
+[![codecov](https://codecov.io/gh/Mounier-JeanChristophe/ceri-m1-techniques-de-test/branch/master/graph/badge.svg?token=2F0M9O00TW)](https://codecov.io/gh/Mounier-JeanChristophe/ceri-m1-techniques-de-test)
+
 ## Introduction
 
 Vous allez à travers ces projet mettre en application une partie des aspects évoqués en cours vis à vis des techniques de tests.  
