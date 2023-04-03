@@ -15,11 +15,23 @@ jobs:
           command: mvn test
       - store_artifacts:
           path:  target
+  codecov:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Codecov
+          command: curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov 
 
 workflows:
   maven_test:
     jobs:
       - test:
+          filters:
+            branches:
+              only:
+                - master
+      - codecov:
           filters:
             branches:
               only:
