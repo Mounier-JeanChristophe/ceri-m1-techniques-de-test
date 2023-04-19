@@ -49,4 +49,24 @@ public class IPokemonFactoryTest {
         assertTrue(pkmCompId.compare(pkm, pkm2) > 0);
         assertTrue(pkmCompName.compare(pkm, pkm2) > 0);
     }
+
+    @Test
+    public void getHpTest(){
+        assertEquals(2, pkm.getHp());
+    }
+
+    @Test
+    public void getDustTest(){
+        assertEquals(2, pkm.getDust());
+    }
+
+    @Test
+    public void getCandyTest(){
+        assertEquals(2,pkm.getCandy());
+    }
+
+    @Test
+    public void getIvTest(){
+        assertEquals(2.0,pkm.getIv(),0);
+    }
 }
