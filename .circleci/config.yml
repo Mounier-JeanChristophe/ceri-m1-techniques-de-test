@@ -11,18 +11,19 @@ jobs:
       - image: checkstyle/idea-docker:jdk11-idea2022.2.2 
     steps:
       - checkout
-      - run:
-          name: Test
-          command: mvn test
-      - store_artifacts:
-          path:  /target 
-      - codecov/upload
 
       - run:
           name: Inspection
           command: mvn site 
       - store_artifacts:
           path: /target
+
+      - run:
+          name: Test
+          command: mvn test
+      - store_artifacts:
+          path:  /target 
+      - codecov/upload
 
 
 workflows:
