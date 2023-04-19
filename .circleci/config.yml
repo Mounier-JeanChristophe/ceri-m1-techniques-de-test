@@ -11,13 +11,13 @@ jobs:
       - image: checkstyle/idea-docker:jdk11-idea2022.2.2 
     steps:
       - checkout
-
-      - run:
-          name: site
-          command: mvn site
+      
       - run:
           name: post-site
           command: mvn post-site
+      - run:
+          name: site
+          command: mvn site
       - run:
           name: test
           command: mvn test
