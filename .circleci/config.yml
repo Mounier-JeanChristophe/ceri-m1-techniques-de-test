@@ -15,17 +15,12 @@ jobs:
           name: Test
           command: mvn test
       - store_artifacts:
-          path:  target 
+          path:  /target 
       - codecov/upload
 
       - run:
           name: Inspection
-          command: |
-            mkdir .idea
-            cp config/intellij-idea-inspections-misc.xml .idea/misc.xml
-            ./.ci/idea-inspection.sh
-          no_output_timeout: 25m
-          working_directory: ~/TP1
+          command: mvn site 
       - store_artifacts:
           path: /target
 
