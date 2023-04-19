@@ -12,16 +12,20 @@ jobs:
       - checkout
 
       - run:
-          name: post-site
-          command: mvn post-site
-      - run:
           name: site
           command: mvn site
+      - run:
+          name: post-site
+          command: mvn post-site
       - run:
           name: test
           command: mvn test
       - store_artifacts:
-          path:  /target 
+          path: target/site/jacoco/jacoco.xml
+      - store_artifacts:
+          path: target/checkstyle-result.xml
+      - store_artifacts:
+          path: target/site/checkstyle-result.svg
       - codecov/upload
 
 
