@@ -27,7 +27,7 @@ public class IPokedexTest {
         Mockito.when(pkdx.addPokemon(pkm1)).thenReturn(0);
         Mockito.when(pkdx.getPokemon(0)).thenReturn(pkm1);
         Mockito.when(pkdx.getPokemons()).thenReturn(pkmList);
-        Mockito.when(pkdx.getPokemon(-1)).thenThrow(PokedexException.class);
+        Mockito.when(pkdx.getPokemon(-1)).thenThrow(new PokedexException("PokedexException Raised !"));
     }
 
     @Test
@@ -54,10 +54,13 @@ public class IPokedexTest {
     }
 
     @Test
-    public void shouldRaisePokedexExceptionWhenBadID() {
-        assertThrows(PokedexException.class, () -> {
+    public void shouldRaisePokedexExceptionWhenBadID(){
+        Exception exception = assertThrows(PokedexException.class, () -> {
             pkdx.getPokemon(-1);
         });
 
+        String expectedMsg = "PokedexException";
+        String actualMsg = exception.getMessage();
+        assertTrue(actualMsg.contains(expectedMsg));
     }
 }
