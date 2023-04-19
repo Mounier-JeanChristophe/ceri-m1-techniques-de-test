@@ -20,4 +20,19 @@ public class IPokemonMetadataProviderTest {
         assertEquals(pkmMetadata, pkmDataProvider.getPokemonMetadata(0));
     }
 
+    @Test
+    public void getAttackTest(){
+        assertEquals(126, pkmMetadata.getAttack());
+    }
+
+    @Test
+    public void getDefenseTest(){
+        assertEquals(126, pkmMetadata.getDefense());
+    }
+
+    @Test
+    public void getStaminaTest(){
+        assertEquals(90, pkmMetadata.getStamina());
+    }
+
 }
