@@ -22,4 +22,19 @@ public class IPokemonTrainerFactoryTest {
     public void createTrainerTest(){
         assertEquals(pkmTrainer, pkmTrainerFactory.createTrainer("Maurice",Team.MYSTIC, pkdxFacotory));
     }
+
+    @Test
+    public void getNameTest(){
+        assertEquals("Maurice",pkmTrainer.getName());
+    }
+
+    @Test
+    public void getTeamTest(){
+        assertEquals(Team.MYSTIC, pkmTrainer.getTeam());
+    }
+
+    @Test
+    public void getIPokedexTest(){
+        assertEquals(pkdx, pkmTrainer.getPokedex());
+    }
 }
