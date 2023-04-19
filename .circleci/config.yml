@@ -8,8 +8,16 @@ jobs:
   test:
     docker:
       - image: cimg/openjdk:15.0
+      - image: checkstyle/idea-docker:jdk11-idea2022.2.2 
     steps:
       - checkout
+
+      - run:
+          name: Inspection
+          command: mvn checkstyle:checkstyle
+      - store_artifacts:
+          path: /target
+
       - run:
           name: Test
           command: mvn test
