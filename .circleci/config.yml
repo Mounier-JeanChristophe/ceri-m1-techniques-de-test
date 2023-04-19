@@ -5,22 +5,31 @@ orbs:
   codecov: codecov/codecov@3.2.4
 
 jobs:
-  test:
+  build-and-test:
     docker:
       - image: cimg/openjdk:15.0
+      - image: checkstyle/idea-docker:jdk11-idea2022.2.2 
     steps:
       - checkout
+      
       - run:
-          name: Test
+          name: post-site
+          command: mvn post-site
+      - run:
+          name: site
+          command: mvn site
+      - run:
+          name: test
           command: mvn test
       - store_artifacts:
-          path:  target 
+          path:  /target 
       - codecov/upload
+
 
 workflows:
   maven_test:
     jobs:
-      - test:
+      - build-and-test:
           filters:
             branches:
               only:
