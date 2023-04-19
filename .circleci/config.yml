@@ -8,10 +8,9 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/openjdk:15.0
-      - image: checkstyle/idea-docker:jdk11-idea2022.2.2 
     steps:
       - checkout
-      
+
       - run:
           name: post-site
           command: mvn post-site
