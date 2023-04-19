@@ -2,9 +2,12 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class IPokedexTest {
         Mockito.when(pkdx.addPokemon(pkm1)).thenReturn(0);
         Mockito.when(pkdx.getPokemon(0)).thenReturn(pkm1);
         Mockito.when(pkdx.getPokemons()).thenReturn(pkmList);
+        Mockito.when(pkdx.getPokemon(-1)).thenThrow(PokedexException.class);
     }
 
     @Test
@@ -47,5 +51,13 @@ public class IPokedexTest {
         for (Pokemon re : res) {
             assertEquals(pkm1, re);
         }
+    }
+
+    @Test
+    public void shouldRaisePokedexExceptionWhenBadID() {
+        assertThrows(PokedexException.class, () -> {
+            pkdx.getPokemon(-1);
+        });
+
     }
 }
