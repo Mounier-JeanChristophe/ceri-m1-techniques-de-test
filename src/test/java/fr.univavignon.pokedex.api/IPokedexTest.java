@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class IPokedexTest {
@@ -17,20 +16,19 @@ public class IPokedexTest {
     IPokedexFactory pokedexFactory;
     IPokemonFactory pokemonFactory;
     IPokemonMetadataProvider pokemonMetadataProvider;
-    Pokemon bulbi, aquali;
+    Pokemon bulbizarre, aquali;
 
     @Before
-    public void setUp() throws PokedexException{
+    public void setUp(){
         pokedexFactory = new PokedexFactory();
         pokemonFactory = new PokemonFactory();
         pokemonMetadataProvider = new PokemonMetadataProvider();
         pokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
 
-        bulbi = pokemonFactory.createPokemon(0, 10, 56, 12, 2);
-        bulbi = new Pokemon(0,"Bulbizarre", 126, 126, 90, 10,56, 12, 2, 75);
-        aquali = new Pokemon(133,"Aquali", 186,168,260,13,49,7,1,50);//pokemonFactory.createPokemon(133, 13, 49, 7, 1);
+        bulbizarre = new Pokemon(0,"Bulbizarre", 126, 126, 90, 10,56, 12, 2, 75);
+        aquali = new Pokemon(133,"Aquali", 186,168,260,13,49,7,1,50);
 
-        pokedex.addPokemon(bulbi);
+        pokedex.addPokemon(bulbizarre);
         pokedex.addPokemon(aquali);
     }
 
@@ -47,13 +45,13 @@ public class IPokedexTest {
 
     @Test
     public void shouldReturnBulbizarreWhenIndexIs0() throws PokedexException {
-        assertEquals(bulbi, pokedex.getPokemon(0));
+        assertEquals(bulbizarre, pokedex.getPokemon(0));
     }
 
     @Test
     public void shouldReturnPokemonList(){
         List<Pokemon> res = pokedex.getPokemons();
-        assertEquals(bulbi, res.get(0));
+        assertEquals(bulbizarre, res.get(0));
         assertEquals(aquali, res.get(1));
     }
 
@@ -74,10 +72,10 @@ public class IPokedexTest {
         ArrayList<Pokemon> indexOrder = new ArrayList<>();
 
         nameOrder.add(aquali);
-        nameOrder.add(bulbi);
-        cpOrder.add(bulbi);
+        nameOrder.add(bulbizarre);
+        cpOrder.add(bulbizarre);
         cpOrder.add(aquali);
-        indexOrder.add(bulbi);
+        indexOrder.add(bulbizarre);
         indexOrder.add(aquali);
 
         assertEquals(nameOrder, pokedex.getPokemons(PokemonComparators.NAME));
@@ -89,11 +87,11 @@ public class IPokedexTest {
     public void shoulReturnBulbiMetadataWhenIndexIs0() throws PokedexException {
         PokemonMetadata pokemonMetadata = pokemonMetadataProvider.getPokemonMetadata(0);
 
-        assertEquals(bulbi.getName(),pokemonMetadata.getName());
-        assertEquals(bulbi.getAttack(),pokemonMetadata.getAttack());
-        assertEquals(bulbi.getDefense(),pokemonMetadata.getDefense());
-        assertEquals(bulbi.getStamina(),pokemonMetadata.getStamina());
-        assertEquals(bulbi.getIndex(),pokemonMetadata.getIndex());
+        assertEquals(bulbizarre.getName(),pokemonMetadata.getName());
+        assertEquals(bulbizarre.getAttack(),pokemonMetadata.getAttack());
+        assertEquals(bulbizarre.getDefense(),pokemonMetadata.getDefense());
+        assertEquals(bulbizarre.getStamina(),pokemonMetadata.getStamina());
+        assertEquals(bulbizarre.getIndex(),pokemonMetadata.getIndex());
     }
 
     @Test
