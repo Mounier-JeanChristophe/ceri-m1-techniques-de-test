@@ -106,11 +106,17 @@ public class IPokedexTest {
     public void shouldRaisePokedexExceptionWhenBadID(){
         Exception exception = assertThrows(PokedexException.class, () -> pokedex.getPokemon(6));
         Exception exception2 = assertThrows(PokedexException.class, () -> pokedex.getPokemon(-1));
+        Exception metadataException = assertThrows(PokedexException.class, () -> pokemonMetadataProvider.getPokemonMetadata(-1));
+        Exception exceptionWhenCreatePokemon = assertThrows(PokedexException.class, () -> pokemonFactory.createPokemon(5,0,0,0,0));
 
         String actualMsg = exception.getMessage();
         String actualMsg2 = exception2.getMessage();
+        String actualMsg3 = metadataException.getMessage();
+        String actualMsg4 = exceptionWhenCreatePokemon.getMessage();
 
         assertTrue(actualMsg.contains("ID "+ 6 +" introuvable"));
         assertTrue(actualMsg2.contains("ID "+ -1 +" introuvable"));
+        assertTrue(actualMsg3.contains("PokemonMetadata introuvable pour l'index:" + -1));
+        assertTrue(actualMsg4.contains("PokemonMetadata introuvable pour l'index:" + 5));
     }
 }
