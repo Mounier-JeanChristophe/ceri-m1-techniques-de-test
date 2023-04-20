@@ -27,7 +27,8 @@ public class IPokedexTest {
         pokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
 
         bulbi = pokemonFactory.createPokemon(0, 10, 56, 12, 2);
-        aquali = pokemonFactory.createPokemon(133, 13, 49, 7, 1);
+        bulbi = new Pokemon(0,"Bulbizarre", 126, 126, 90, 10,56, 12, 2, 75);
+        aquali = new Pokemon(133,"Aquali", 186,168,260,13,49,7,1,50);//pokemonFactory.createPokemon(133, 13, 49, 7, 1);
 
         pokedex.addPokemon(bulbi);
         pokedex.addPokemon(aquali);
