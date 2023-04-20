@@ -10,7 +10,7 @@ public class IPokemonMetadataProviderTest {
     private final PokemonMetadata pokemonMetadata= new PokemonMetadata(133, "Aquali", 186, 168, 260);
 
     @Test
-    public void getPokemonMetadataTest() throws PokedexException {
+    public void shouldReturnAqualiMetadataWhenIndexIs133() throws PokedexException {
         PokemonMetadata pokemonMetadataTest = pkmDataProvider.getPokemonMetadata(133);
         assertEquals(pokemonMetadata.getIndex(), pokemonMetadataTest.getIndex());
         assertEquals(pokemonMetadata.getAttack(), pokemonMetadataTest.getAttack());
@@ -25,17 +25,17 @@ public class IPokemonMetadataProviderTest {
     }
 
     @Test
-    public void getAttackTest(){
+    public void shouldReturnAqualiAttackValue(){
         assertEquals(186, pokemonMetadata.getAttack());
     }
 
     @Test
-    public void getDefenseTest(){
+    public void shouldReturnAqualiDefenseValue(){
         assertEquals(168, pokemonMetadata.getDefense());
     }
 
     @Test
-    public void getStaminaTest(){
+    public void shouldReturnAqualiStaminaValue(){
         assertEquals(260, pokemonMetadata.getStamina());
     }
 

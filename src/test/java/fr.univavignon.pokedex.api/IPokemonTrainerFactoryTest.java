@@ -26,7 +26,7 @@ public class IPokemonTrainerFactoryTest {
     }
 
     @Test
-    public void createTrainerTest(){
+    public void shoulReturNewTrainerWithGivenArgs(){
         PokemonTrainer trainerTest = pokemonTrainerFactory.createTrainer("Maurice",Team.MYSTIC, pokedexFactory);
         assertEquals(pkmTrainer.getName(), trainerTest.getName());
         assertEquals(pkmTrainer.getTeam(), trainerTest.getTeam());
@@ -34,17 +34,17 @@ public class IPokemonTrainerFactoryTest {
     }
 
     @Test
-    public void getNameTest(){
+    public void shouldReturnTrainerName(){
         assertEquals("Maurice",pkmTrainer.getName());
     }
 
     @Test
-    public void getTeamTest(){
+    public void shouldReturnTrainerTeam(){
         assertEquals(Team.MYSTIC, pkmTrainer.getTeam());
     }
 
     @Test
-    public void getIPokedexTest(){
+    public void shouldReturnTrainerPokedex(){
         assertEquals(pokedex.getPokemons(), pkmTrainer.getPokedex().getPokemons());
     }
 }

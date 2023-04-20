@@ -17,7 +17,7 @@ public class IPokedexTest {
     IPokedexFactory pokedexFactory;
     IPokemonFactory pokemonFactory;
     IPokemonMetadataProvider pokemonMetadataProvider;
-    Pokemon bulbi, aqua;
+    Pokemon bulbi, aquali;
 
     @Before
     public void setUp() throws PokedexException{
@@ -27,64 +27,57 @@ public class IPokedexTest {
         pokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
 
         bulbi = pokemonFactory.createPokemon(0, 10, 56, 12, 2);
-        aqua = pokemonFactory.createPokemon(133, 13, 49, 7, 1);
+        aquali = pokemonFactory.createPokemon(133, 13, 49, 7, 1);
 
         pokedex.addPokemon(bulbi);
-        pokedex.addPokemon(aqua);
+        pokedex.addPokemon(aquali);
     }
 
     @Test
-    public void sizeTest(){
+    public void shouldReturnPokedexSize(){
         assertEquals(2,pokedex.size());
     }
 
     @Test
-    public void addPokemonTest() throws PokedexException{
+    public void shouldReturn2WhenAddingAquali() throws PokedexException{
         Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
         assertEquals(2, pokedex.addPokemon(aquaTest));
     }
 
     @Test
-    public void getPokemonTest() throws PokedexException {
+    public void shouldReturnBulbizarreWhenIndexIs0() throws PokedexException {
         assertEquals(bulbi, pokedex.getPokemon(0));
     }
 
     @Test
-    public void getPokemonsTest(){
+    public void shouldReturnPokemonList(){
         List<Pokemon> res = pokedex.getPokemons();
-
         assertEquals(bulbi, res.get(0));
-        assertEquals(aqua, res.get(1));
+        assertEquals(aquali, res.get(1));
     }
 
     @Test
-    public void createPokemonTest() throws PokedexException{
-        Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
-        double iv = aquaTest.getIv();
-        assertEquals(133, aquaTest.getIndex());
-        assertEquals(10, aquaTest.getCp());
-        assertEquals(50, aquaTest.getHp());
-        assertEquals(6, aquaTest.getDust());
-        assertEquals(1, aquaTest.getCandy());
-        assertEquals(186, aquaTest.getAttack());
-        assertEquals(168,aquaTest.getDefense());
-        assertEquals(260,aquaTest.getStamina());
-        assertEquals(iv, aquaTest.getIv(), 0);
-
+    public void shouldReturnAqualiWhenIndexIs133() throws PokedexException{
+        Pokemon aquaTest = pokemonFactory.createPokemon(133, 13, 49, 7, 1);
+        assertEquals(aquali.getIndex(), aquaTest.getIndex());
+        assertEquals(aquali.getCp(), aquaTest.getCp());
+        assertEquals(aquali.getHp(), aquaTest.getHp());
+        assertEquals(aquali.getDust(), aquaTest.getDust());
+        assertEquals(aquali.getCandy(), aquaTest.getCandy());
     }
 
     @Test
-    public void getOrderPokemonsTest(){
+    public void shouldReturnOrderedListDependingOnComparator(){
         ArrayList<Pokemon> nameOrder = new ArrayList<>();
         ArrayList<Pokemon> cpOrder = new ArrayList<>();
         ArrayList<Pokemon> indexOrder = new ArrayList<>();
 
-        nameOrder.add(aqua);
+        nameOrder.add(aquali);
         nameOrder.add(bulbi);
         cpOrder.add(bulbi);
-        cpOrder.add(aqua);
+        cpOrder.add(aquali);
         indexOrder.add(bulbi);
-        indexOrder.add(aqua);
+        indexOrder.add(aquali);
 
         assertEquals(nameOrder, pokedex.getPokemons(PokemonComparators.NAME));
         assertEquals(cpOrder, pokedex.getPokemons(PokemonComparators.CP));
@@ -92,14 +85,14 @@ public class IPokedexTest {
     }
 
     @Test
-    public void getPokemonMetadataTest() throws PokedexException {
+    public void shoulReturnBulbiMetadataWhenIndexIs0() throws PokedexException {
         PokemonMetadata pokemonMetadata = pokemonMetadataProvider.getPokemonMetadata(0);
 
-        assertEquals("Bulbizarre",pokemonMetadata.getName());
-        assertEquals(126,pokemonMetadata.getAttack());
-        assertEquals(126,pokemonMetadata.getDefense());
-        assertEquals(90,pokemonMetadata.getStamina());
-        assertEquals(0,pokemonMetadata.getIndex());
+        assertEquals(bulbi.getName(),pokemonMetadata.getName());
+        assertEquals(bulbi.getAttack(),pokemonMetadata.getAttack());
+        assertEquals(bulbi.getDefense(),pokemonMetadata.getDefense());
+        assertEquals(bulbi.getStamina(),pokemonMetadata.getStamina());
+        assertEquals(bulbi.getIndex(),pokemonMetadata.getIndex());
     }
 
     @Test

@@ -18,7 +18,7 @@ public class IPokedexFactoryTest {
     }
 
     @Test
-    public void testCreatePokedex() {
+    public void shouldReturnEmptyPokedex() {
         Pokedex pokedex = new Pokedex(metadataProvider, pokemonFactory);
         assertEquals(pokedex.getPokemons(), pokedexFactory.createPokedex(metadataProvider,pokemonFactory).getPokemons());
     }

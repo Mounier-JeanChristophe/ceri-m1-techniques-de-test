@@ -21,7 +21,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void createPokemonTest() throws PokedexException{
+    public void shouldReturnBulbizarreWhenIndexIs0() throws PokedexException{
 
         Pokemon bulbiTest = pokemonFactory.createPokemon(0, 50, 140, 56, 12);
         Pokemon bulbiBase = new Pokemon(0, "Bulbizarre", 126, 126, 90, 50, 140, 56, 12, bulbiTest.getIv());
@@ -36,7 +36,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void comparatorTestEqual(){
+    public void shouldReturn0WhenBothPokemonAreSame(){
         Pokemon bulbiTest = new Pokemon(0, "Bulbizarre", 126, 126, 90, 50, 140, 56, 12, 2);
         assertEquals(0, pkmCompCP.compare(bulbi, bulbiTest));
         assertEquals(0,pkmCompId.compare(bulbi, bulbiTest));
@@ -44,36 +44,36 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void testCompareWhenFirstPkmIsLower(){
+    public void shouldReturnNegativeValueWhenFirstPkmHasLowerAttribute(){
         assertTrue(pkmCompCP.compare(bulbi, aqua) < 0);
         assertTrue(pkmCompId.compare(bulbi, aqua) < 0);
         assertTrue(pkmCompName.compare(aqua, bulbi) < 0);
     }
 
     @Test
-    public void testCompareWhenFirstPkmIsUpper(){
+    public void shouldReturnPositiveValueWhenFirstPkmHasUpperAttribute(){
         assertTrue(pkmCompCP.compare(aqua, bulbi) > 0);
         assertTrue(pkmCompId.compare(aqua, bulbi) > 0);
         assertTrue(pkmCompName.compare(bulbi, aqua) > 0);
     }
 
     @Test
-    public void getHpTest(){
+    public void shouldReturnBulbizarreHp(){
         assertEquals(140, bulbi.getHp());
     }
 
     @Test
-    public void getDustTest(){
+    public void shouldReturnBulbizarreDust(){
         assertEquals(56, bulbi.getDust());
     }
 
     @Test
-    public void getCandyTest(){
+    public void shouldReturnBulbizarreCandy(){
         assertEquals(12,bulbi.getCandy());
     }
 
     @Test
-    public void getIvTest(){
+    public void shouldReturnBulbizarreIv(){
         assertEquals(2,bulbi.getIv(),0);
     }
 
