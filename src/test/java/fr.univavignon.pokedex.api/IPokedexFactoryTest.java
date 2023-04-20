@@ -8,18 +8,18 @@ import static org.junit.Assert.assertEquals;
 
 public class IPokedexFactoryTest {
 
-    IPokemonMetadataProvider provider = Mockito.mock(IPokemonMetadataProvider.class);
-    IPokemonFactory factory = Mockito.mock(IPokemonFactory.class);
-    IPokedex pokedex = Mockito.mock(IPokedex.class);
-    IPokedexFactory pkdxFactory = Mockito.mock(IPokedexFactory.class);
+    IPokemonMetadataProvider metadataProvider = new PokemonMetadataProvider();
+    IPokemonFactory pokemonFactory = new PokemonFactory();
+    IPokedexFactory pokedexFactory;
 
     @Before
     public void setUp(){
-        Mockito.when(pkdxFactory.createPokedex(provider, factory)).thenReturn(pokedex);
+        pokedexFactory = new PokedexFactory();
     }
 
     @Test
     public void testCreatePokedex() {
-        assertEquals(pokedex, pkdxFactory.createPokedex(provider,factory));
+        Pokedex pokedex = new Pokedex(metadataProvider, pokemonFactory);
+        assertEquals(pokedex.getPokemons(), pokedexFactory.createPokedex(metadataProvider,pokemonFactory).getPokemons());
     }
 }

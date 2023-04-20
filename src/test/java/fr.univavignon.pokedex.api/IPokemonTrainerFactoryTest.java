@@ -2,25 +2,35 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import static org.junit.Assert.assertEquals;
 
 public class IPokemonTrainerFactoryTest {
 
-    private IPokedexFactory pkdxFacotory = Mockito.mock(IPokedexFactory.class);
-    private IPokedex pkdx = Mockito.mock(IPokedex.class);
-    private PokemonTrainer pkmTrainer = new PokemonTrainer("Maurice", Team.MYSTIC, pkdx);
-    private IPokemonTrainerFactory pkmTrainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
+    private Pokemon bulbi;
+    private Pokemon aqua;
+    private final IPokedexFactory pokedexFactory = new PokedexFactory();
+    private final IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider();
+    private final IPokemonFactory pokemonFactory = new PokemonFactory();
+    private final IPokemonTrainerFactory pokemonTrainerFactory = new PokemonTrainerFactory();
+
+    private IPokedex pokedex;
+    private PokemonTrainer pkmTrainer;
+
 
     @Before
     public void setUp(){
-        Mockito.when(pkmTrainerFactory.createTrainer("Maurice", Team.MYSTIC,pkdxFacotory)).thenReturn(pkmTrainer);
+        bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 50, 140, 56, 12, 2);
+        aqua = new Pokemon(133, "Aquali", 186, 168, 260, 100, 90, 49, 7, 1);
+        pokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
+        pkmTrainer = new PokemonTrainer("Maurice", Team.MYSTIC, pokedex);
     }
 
     @Test
     public void createTrainerTest(){
-        assertEquals(pkmTrainer, pkmTrainerFactory.createTrainer("Maurice",Team.MYSTIC, pkdxFacotory));
+        PokemonTrainer trainerTest = pokemonTrainerFactory.createTrainer("Maurice",Team.MYSTIC, pokedexFactory);
+        assertEquals(pkmTrainer.getName(), trainerTest.getName());
+        assertEquals(pkmTrainer.getTeam(), trainerTest.getTeam());
+        assertEquals(pkmTrainer.getPokedex().getPokemons(), trainerTest.getPokedex().getPokemons());
     }
 
     @Test
@@ -35,6 +45,6 @@ public class IPokemonTrainerFactoryTest {
 
     @Test
     public void getIPokedexTest(){
-        assertEquals(pkdx, pkmTrainer.getPokedex());
+        assertEquals(pokedex.getPokemons(), pkmTrainer.getPokedex().getPokemons());
     }
 }

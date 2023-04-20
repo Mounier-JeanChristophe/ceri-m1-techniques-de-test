@@ -2,64 +2,64 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IPokedexTest {
 
-    Pokemon pkm1 = new Pokemon(0,"Grokachu", 2,2,2,2,2,2,2,2.0);
-    Pokemon pkm2 = new Pokemon(1,"Ptikachu", 1,1,1,1,1,1,1,1.0);
-    List<Pokemon> pkmList = new ArrayList<>();
-    IPokedex pkdx = Mockito.mock(IPokedex.class);
+    IPokedex pokedex;
+    IPokedexFactory pokedexFactory;
+    IPokemonFactory pokemonFactory;
+    IPokemonMetadataProvider pokemonMetadataProvider;
+    Pokemon bulbi, aqua;
 
     @Before
-    public void setUp() throws PokedexException {
-        pkmList.add(pkm1);
-        pkmList.add(pkm1);
-        Mockito.when(pkdx.size()).thenReturn(2);
-        Mockito.when(pkdx.addPokemon(pkm1)).thenReturn(0);
-        Mockito.when(pkdx.getPokemon(0)).thenReturn(pkm1);
-        Mockito.when(pkdx.getPokemons()).thenReturn(pkmList);
-        Mockito.when(pkdx.getPokemon(-1)).thenThrow(new PokedexException("PokedexException Raised !"));
+    public void setUp() {
+        pokedexFactory = new PokedexFactory();
+        pokemonFactory = new PokemonFactory();
+        pokemonMetadataProvider = new PokemonMetadataProvider();
+        pokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
+
+        bulbi = pokemonFactory.createPokemon(0, 10, 56, 12, 2);
+        aqua = pokemonFactory.createPokemon(133, 13, 49, 7, 1);
+
+        pokedex.addPokemon(bulbi);
+        pokedex.addPokemon(aqua);
     }
 
     @Test
     public void sizeTest(){
-        assertEquals(2,pkdx.size());
+        assertEquals(2,pokedex.size());
     }
 
     @Test
     public void addPokemonTest(){
-        assertEquals(0, pkdx.addPokemon(pkm1));
+        Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
+        assertEquals(2, pokedex.addPokemon(aquaTest));
     }
 
     @Test
     public void getPokemonTest() throws PokedexException {
-        assertEquals(pkm1, pkdx.getPokemon(0));
+        assertEquals(bulbi, pokedex.getPokemon(0));
     }
 
     @Test
     public void getPokemonsTest(){
-        List<Pokemon> res = pkdx.getPokemons();
-        for (Pokemon re : res) {
-            assertEquals(pkm1, re);
-        }
+        List<Pokemon> res = pokedex.getPokemons();
+
+        assertEquals(bulbi, res.get(0));
+        assertEquals(aqua, res.get(1));
     }
 
     @Test
     public void shouldRaisePokedexExceptionWhenBadID(){
-        Exception exception = assertThrows(PokedexException.class, () -> {
-            pkdx.getPokemon(-1);
-        });
+        Exception exception = assertThrows(PokedexException.class, () -> pokedex.getPokemon(6));
 
-        String expectedMsg = "PokedexException";
+        String expectedMsg = "ID "+ 6 +" introuvable";
         String actualMsg = exception.getMessage();
         assertTrue(actualMsg.contains(expectedMsg));
     }
