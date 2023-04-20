@@ -7,6 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class IPokedexTest {
@@ -58,11 +60,46 @@ public class IPokedexTest {
     @Test
     public void createPokemonTest() throws PokedexException{
         Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
+        double iv = aquaTest.getIv();
         assertEquals(133, aquaTest.getIndex());
         assertEquals(10, aquaTest.getCp());
         assertEquals(50, aquaTest.getHp());
         assertEquals(6, aquaTest.getDust());
         assertEquals(1, aquaTest.getCandy());
+        assertEquals(186, aquaTest.getAttack());
+        assertEquals(168,aquaTest.getDefense());
+        assertEquals(260,aquaTest.getStamina());
+        assertEquals(iv, aquaTest.getIv(), 0);
+
+    }
+
+    @Test
+    public void getOrderPokemonsTest(){
+        ArrayList<Pokemon> nameOrder = new ArrayList<>();
+        ArrayList<Pokemon> cpOrder = new ArrayList<>();
+        ArrayList<Pokemon> indexOrder = new ArrayList<>();
+
+        nameOrder.add(aqua);
+        nameOrder.add(bulbi);
+        cpOrder.add(bulbi);
+        cpOrder.add(aqua);
+        indexOrder.add(bulbi);
+        indexOrder.add(aqua);
+
+        assertEquals(nameOrder, pokedex.getPokemons(PokemonComparators.NAME));
+        assertEquals(cpOrder, pokedex.getPokemons(PokemonComparators.CP));
+        assertEquals(indexOrder, pokedex.getPokemons(PokemonComparators.INDEX));
+    }
+
+    @Test
+    public void getPokemonMetadataTest() throws PokedexException {
+        PokemonMetadata pokemonMetadata = pokemonMetadataProvider.getPokemonMetadata(0);
+
+        assertEquals("Bulbizarre",pokemonMetadata.getName());
+        assertEquals(126,pokemonMetadata.getAttack());
+        assertEquals(126,pokemonMetadata.getDefense());
+        assertEquals(90,pokemonMetadata.getStamina());
+        assertEquals(0,pokemonMetadata.getIndex());
     }
 
     @Test
