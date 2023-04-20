@@ -3,8 +3,7 @@ package fr.univavignon.pokedex.api;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class IPokemonFactoryTest {
 
@@ -22,7 +21,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void createPokemonTest(){
+    public void createPokemonTest() throws PokedexException{
 
         Pokemon bulbiTest = pokemonFactory.createPokemon(0, 50, 140, 56, 12);
         Pokemon bulbiBase = new Pokemon(0, "Bulbizarre", 126, 126, 90, 50, 140, 56, 12, bulbiTest.getIv());
@@ -76,5 +75,10 @@ public class IPokemonFactoryTest {
     @Test
     public void getIvTest(){
         assertEquals(2,bulbi.getIv(),0);
+    }
+
+    @Test
+    public void shouldRaisePokedexExceptionWhenBadIndex(){
+        assertThrows(PokedexException.class, () -> pokemonFactory.createPokemon(5,0,0,0,0));
     }
 }

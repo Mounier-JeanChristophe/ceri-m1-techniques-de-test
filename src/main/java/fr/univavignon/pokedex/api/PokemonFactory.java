@@ -2,16 +2,11 @@ package fr.univavignon.pokedex.api;
 
 public class PokemonFactory implements IPokemonFactory{
     @Override
-    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
+    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
 
         PokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider();
-        PokemonMetadata pkmMetadata = null;
+        PokemonMetadata pkmMetadata = pokemonMetadataProvider.getPokemonMetadata(index);
 
-        try {
-            pkmMetadata = pokemonMetadataProvider.getPokemonMetadata(index);
-        } catch (PokedexException e) {
-            e.printStackTrace();
-        }
         String name = pkmMetadata.getName();
         int attack = pkmMetadata.getAttack();
         int defense = pkmMetadata.getDefense();

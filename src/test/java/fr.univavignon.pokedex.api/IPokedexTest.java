@@ -18,7 +18,7 @@ public class IPokedexTest {
     Pokemon bulbi, aqua;
 
     @Before
-    public void setUp() {
+    public void setUp() throws PokedexException{
         pokedexFactory = new PokedexFactory();
         pokemonFactory = new PokemonFactory();
         pokemonMetadataProvider = new PokemonMetadataProvider();
@@ -37,7 +37,7 @@ public class IPokedexTest {
     }
 
     @Test
-    public void addPokemonTest(){
+    public void addPokemonTest() throws PokedexException{
         Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
         assertEquals(2, pokedex.addPokemon(aquaTest));
     }
@@ -56,11 +56,24 @@ public class IPokedexTest {
     }
 
     @Test
+    public void createPokemonTest() throws PokedexException{
+        Pokemon aquaTest = pokemonFactory.createPokemon(133, 10, 50, 6, 1);
+        assertEquals(133, aquaTest.getIndex());
+        assertEquals(10, aquaTest.getCp());
+        assertEquals(50, aquaTest.getHp());
+        assertEquals(6, aquaTest.getDust());
+        assertEquals(1, aquaTest.getCandy());
+    }
+
+    @Test
     public void shouldRaisePokedexExceptionWhenBadID(){
         Exception exception = assertThrows(PokedexException.class, () -> pokedex.getPokemon(6));
+        Exception exception2 = assertThrows(PokedexException.class, () -> pokedex.getPokemon(-1));
 
-        String expectedMsg = "ID "+ 6 +" introuvable";
         String actualMsg = exception.getMessage();
-        assertTrue(actualMsg.contains(expectedMsg));
+        String actualMsg2 = exception2.getMessage();
+
+        assertTrue(actualMsg.contains("ID "+ 6 +" introuvable"));
+        assertTrue(actualMsg2.contains("ID "+ -1 +" introuvable"));
     }
 }

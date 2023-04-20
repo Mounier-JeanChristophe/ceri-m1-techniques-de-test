@@ -2,8 +2,7 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class IPokemonMetadataProviderTest {
 
@@ -18,6 +17,11 @@ public class IPokemonMetadataProviderTest {
         assertEquals(pokemonMetadata.getDefense(), pokemonMetadataTest.getDefense());
         assertEquals(pokemonMetadata.getStamina(), pokemonMetadataTest.getStamina());
         assertEquals(pokemonMetadata.getName(), pokemonMetadataTest.getName());
+    }
+
+    @Test
+    public void shouldRaisePokedexExceptionWhenBadIndex() {
+        assertThrows(PokedexException.class, () -> pkmDataProvider.getPokemonMetadata(5));
     }
 
     @Test
