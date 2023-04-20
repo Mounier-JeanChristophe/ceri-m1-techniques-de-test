@@ -20,6 +20,10 @@ jobs:
       - run:
           name: test
           command: mvn test
+      - run:
+          name: javadoc
+          command: mvn javadoc:javadoc
+
       - store_artifacts:
           path: target/site/jacoco/jacoco.xml
       - store_artifacts:
