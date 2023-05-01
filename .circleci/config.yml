@@ -23,7 +23,23 @@ jobs:
       - run:
           name: javadoc
           command: mvn javadoc:javadoc
+      - add_ssh_keys:
+          fingerprints:
+            - "e0:87:fe:a4:c6:73:3c:b2:f6:7c:6c:ac:1e:f9:3d:c9"
 
+      - run:
+          name: upload_javadoc
+          command: |
+            git config --global user.name "Mounier-JeanChristophe"
+            git config --global user.email "jean-christophe.mounier@alumni.univ-avignon.fr"
+            git clone --branch=gh-pages --depth=1 git@github.com:Mounier-JeanChristophe/ceri-m1-techniques-de-test.git gh-pages
+            rm -rf gh-pages/*
+            cp -R target/site/apidocs/* gh-pages/
+            cd gh-pages
+            git add .
+            git commit -m "javadoc uploaded successfully"
+            git push origin gh-pages
+            
       - store_artifacts:
           path: target/site/jacoco/jacoco.xml
       - store_artifacts:
