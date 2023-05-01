@@ -25,7 +25,7 @@ jobs:
           command: mvn javadoc:javadoc
       - add_ssh_keys:
           fingerprints:
-            - "e0:87:fe:a4:c6:73:3c:b2:f6:7c:6c:ac:1e:f9:3d:c9"
+            - "6e:b0:e5:5b:be:83:5e:76:6d:d7:1e:9c:d9:88:be:30"
 
       - run:
           name: upload_javadoc
