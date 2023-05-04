@@ -9,7 +9,7 @@ public class IPokemonFactoryTest {
 
     Pokemon bulbi;
     Pokemon aqua;
-    IPokemonFactory pokemonFactory = new PokemonFactory();
+    IPokemonFactory pokemonFactory = new RocketPokemonFactory();
     PokemonComparators pkmCompName = PokemonComparators.NAME;
     PokemonComparators pkmCompCP = PokemonComparators.CP;
     PokemonComparators pkmCompId = PokemonComparators.INDEX;
